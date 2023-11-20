@@ -3,7 +3,7 @@ import { Checkbox } from "./components/forms/chexbox";
 import { ProductCategoryRow } from "./components/products/productCategoryRow";
 import { ProductRow } from "./components/products/productRow";
 import { Input } from "./components/forms/input";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
 
 const PRODUCTS = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
