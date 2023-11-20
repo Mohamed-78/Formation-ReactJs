@@ -1,23 +1,34 @@
 import { useFetch } from "./hooks/useFetch"
-import { useIncrement } from "./hooks/useIncrement"
-import { useToggle } from "./hooks/useToggle"
+import { Input } from "./components/forms/input"
 import { useState } from "react"
+import { createPortal } from "react-dom"
 
 function App() {
-  const {loading, data, errors} = useFetch('https://jsonplaceholder.typicode.com/posts?_limit=10&delay=5000')
-    
-  return <div className="container my-2">
-      {loading && <div className="spinner-border" role="status">
-        <span className="visualy-hidden">Chargement...</span>
-    </div>}
-    {errors && <div className="alert alert-danger">{errors.toString()}</div>}
-    {data && <div>
-          <ul>
-            {data.map(post => (<li key={post.id}>{post.title}</li>))}
-          </ul>
-      </div>}
+  return <div style={{
+      height: 300,
+      overflowY: 'scroll',
+      background: '#EEE',
+      margin: 20,
+      position: 'relative'
+    }}>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente veniam quia ipsa nihil nesciunt non officia doloremque quis, cupiditate fugiat voluptate adipisci corrupti veritatis rem vel ut quo quam neque!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente veniam quia ipsa nihil nesciunt non officia doloremque quis, cupiditate fugiat voluptate adipisci corrupti veritatis rem vel ut quo quam neque!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente veniam quia ipsa nihil nesciunt non officia doloremque quis, cupiditate fugiat voluptate adipisci corrupti veritatis rem vel ut quo quam neque!</p>
+      <Modal/>
   </div>
- 
+}
+
+function Modal(){
+  return createPortal(<div style={{
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 10,
+    border: 'solid 1px grey',
+    background: '#FFF'
+  }}>
+    je suis une modale   
+  </div>, document.body)
 }
 
 export default App
