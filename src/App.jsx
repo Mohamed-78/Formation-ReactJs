@@ -3,6 +3,7 @@ import { Checkbox } from "./components/forms/chexbox";
 import { ProductCategoryRow } from "./components/products/productCategoryRow";
 import { ProductRow } from "./components/products/productRow";
 import { Input } from "./components/forms/input";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const PRODUCTS = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -37,7 +38,9 @@ function App() {
         showStockedOnly={showStockedOnly} 
         onStockedOnlyChange={setShowStockedOnly}
       />
-      <ProductTable products={visibleProduct}/>
+      <ErrorBoundary fallback={<p>Impossible d'afficher la liste produit</p>}>
+        <ProductTable products={visibleProduct}/>
+      </ErrorBoundary>
   </div>
 }
 
