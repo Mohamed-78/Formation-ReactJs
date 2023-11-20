@@ -1,42 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
-import { Checkbox } from "./components/forms/chexbox";
-import { ProductCategoryRow } from "./components/products/productCategoryRow";
-import { ProductRow } from "./components/products/productRow";
-import { Input } from "./components/forms/input";
+import { useFetch } from "./hooks/useFetch"
+import { useIncrement } from "./hooks/useIncrement"
+import { useToggle } from "./hooks/useToggle"
+import { useState } from "react"
 
 function App() {
-
-  const [firstname, setFirstname] = useState('John')
-  const [password, setPassword] = useState('MotDePasse')
-  const security = useMemo(() =>{
-      return PasswordSecurity(password)
-  }, [password])
-
-  return <div className="container my-3 vstack gap-2">
-      <Input
-        label="Nom d'utilisateur"
-        value={firstname}
-        onChange={setFirstname}
-      />
-      <div>
-        <Input
-          label="Password"
-          type="password"
-          value={password}
-          onChange={setPassword}
-        />
-        Securite: {security}
-      </div>
+  const {loading, data, errors} = useFetch('https://jsonplaceholder.typicode.com/posts?_limit=10&delay=5000')
+    
+  return <div className="container my-2">
+      {loading && <div className="spinner-border" role="status">
+        <span className="visualy-hidden">Chargement...</span>
+    </div>}
+    {errors && <div className="alert alert-danger">{errors.toString()}</div>}
+    {data && <div>
+          <ul>
+            {data.map(post => (<li key={post.id}>{post.title}</li>))}
+          </ul>
+      </div>}
   </div>
-}
-
-function PasswordSecurity(password){
-  if(password.length <3){
-    return 'Faible'
-  } else if(password.length < 6){
-    return 'Moyen'
-  }
-  return 'Fort';
+ 
 }
 
 export default App
